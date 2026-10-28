@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "UQ Rooms bridge",
+  "version": "1.0.0",
+  "description": "Forwards your UQ Book It session to the UQ Rooms app running on localhost.",
+  "host_permissions": ["http://localhost:5173/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    { "matches": ["https://uqbookit.uq.edu.au/*"], "js": ["content.js"], "run_at": "document_idle" }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "uq-rooms",
+  "version": "1.0.0",
+  "description": "Interactive 3D map of UQ St Lucia library study rooms with live availability from UQ Book It",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "prestart": "test -f public/floorplans.json || node scripts/fetch-floorplans.mjs",
+    "floorplans": "node scripts/fetch-floorplans.mjs"
+  },
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UQ Rooms</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Top bar: brand + time controls -->
+  <header class="topbar glass">
+    <div class="brand"><span class="logo">◆</span> UQ Rooms <span class="campus">St Lucia</span></div>
+    <div class="controls">
+      <label class="ctl"><span>Date</span><input type="date" id="date" /></label>
+      <label class="ctl grow"><span>From <b id="timeLabel">10:00</b></span><input type="range" id="time" min="0" max="1410" step="30" /></label>
+      <label class="ctl"><span>For</span>
+        <select id="duration">
+          <option value="60">1 hr</option><option value="120" selected>2 hr</option><option value="180">3 hr</option><option value="240">4 hr</option>
+        </select>
+      </label>
+      <label class="ctl"><span>People</span>
+        <select id="people"><option value="1">Any</option><option value="2">2+</option><option value="4">4+</option><option value="6">6+</option><option value="8">8+</option></select>
+      </label>
+    </div>
+    <div class="legend">
+      <span><i class="dot free"></i>Free</span><span><i class="dot partial"></i>Partly</span><span><i class="dot busy"></i>Booked</span>
+    </div>
+    <div id="conn" class="conn off"><i></i>Checking UQ Book It…</div>
+  </header>
+
+  <!-- Building panel (schematic) -->
+  <aside id="panel" class="panel glass" aria-hidden="true">
+    <div class="panel-head">
+      <button id="back" class="icon-btn" title="Back to campus">←</button>
+      <div>
+        <div class="eyebrow" id="pCode"></div>
+        <h2 id="pName"></h2>
+        <div class="sub" id="pSub"></div>
+      </div>
+    </div>
+    <div class="floors" id="floors"></div>
+    <div class="schematic-wrap"><svg id="schematic" viewBox="0 0 100 60"></svg><div class="credit">Floor plan © UQ / MazeMap</div></div>
+    <div id="roomCard" class="room-card hidden"></div>
+    <div class="room-list" id="roomList"></div>
+  </aside>
+
+  <!-- Room finder -->
+  <section id="finder" class="finder glass">
+    <div class="finder-bar" id="finderBar">
+      <span class="finder-title">⌕ Find a room</span>
+      <button class="icon-btn small" title="Collapse">▾</button>
+    </div>
+    <form id="finderForm" class="finder-form">
+      <div class="f-label">Buildings</div>
+      <div class="chips" id="fBuildings"></div>
+      <div class="f-row">
+        <label class="ctl"><span>Date</span><input type="date" id="fDate" required /></label>
+        <label class="ctl"><span>From</span><select id="fStart"></select></label>
+        <label class="ctl"><span>To</span><select id="fEnd"></select></label>
+        <label class="ctl"><span>People</span><input type="number" id="fPeople" min="1" max="20" value="1" /></label>
+      </div>
+      <div class="f-label">Room type</div>
+      <div class="chips" id="fTypes"></div>
+      <button type="submit" class="search-btn">Search rooms</button>
+    </form>
+    <div class="results" id="results"></div>
+  </section>
+
+  <div id="tooltip" class="tooltip hidden"></div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
